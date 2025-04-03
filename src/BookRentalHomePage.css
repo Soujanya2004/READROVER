@@ -1,0 +1,138 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.book-rental-container {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e0e8f0 100%);
+  color: #333;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 20px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo svg {
+  margin-right: 15px;
+  color: #2c3e50;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.cta-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+.cta-button svg {
+  margin-right: 10px;
+}
+
+/* Search Section */
+.search-section {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px 12px 50px;
+  border: 2px solid #e0e0e0;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0a0a0;
+}
+
+/* Features Section */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.feature-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.feature-card svg {
+  margin: 0 auto 20px;
+  color: #3498db;
+}
+
+.feature-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.feature-description {
+  color: #7f8c8d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
