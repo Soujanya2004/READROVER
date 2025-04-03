@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './BookRentalHomePage.css';
 import './BookListing.css';
+import BookDisplayPage from './BookDisplayPage';
 
-// Icon Components (from previous implementation)
+// Icon Components
 const BookIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
@@ -84,7 +85,7 @@ const CreateAccountModal = ({ onClose, onAccountCreate }) => {
 };
 
 // Book Listing Component
-const BookListingForm = () => {
+const BookListingForm = ({ onBookListed }) => {
   const [bookData, setBookData] = useState({
     title: '',
     author: '',
@@ -121,6 +122,9 @@ const BookListingForm = () => {
     e.preventDefault();
     console.log('Book Listing Submitted:', bookData);
     alert('Book Listed Successfully!');
+    if (onBookListed) {
+      onBookListed(bookData);
+    }
   };
 
   return (
@@ -232,6 +236,16 @@ const BookListingForm = () => {
 // Main Component
 const BookRentalHomePage = () => {
   const [currentView, setCurrentView] = useState('home');
+  const [listedBooks, setListedBooks] = useState([]);
+
+  const handleBookListed = (newBook) => {
+    const bookWithId = {
+      ...newBook,
+      id: Date.now() // Simple way to generate a unique ID
+    };
+    setListedBooks([...listedBooks, bookWithId]);
+    setCurrentView('view-books');
+  };
 
   const renderContent = () => {
     switch(currentView) {
@@ -245,7 +259,9 @@ const BookRentalHomePage = () => {
           </div>
         );
       case 'book-form':
-        return <BookListingForm />;
+        return <BookListingForm onBookListed={handleBookListed} />;
+      case 'view-books':
+        return <BookDisplayPage books={listedBooks} />;
       default:
         return (
           <div className="book-rental-container">
@@ -255,9 +271,17 @@ const BookRentalHomePage = () => {
                 <BookIcon />
                 <span className="logo-text">Campus Book Exchange</span>
               </div>
-              <button className="cta-button">
-                Create Account
-              </button>
+              <div className="header-actions">
+                <button 
+                  className="nav-button"
+                  onClick={() => setCurrentView('view-books')}
+                >
+                  Browse Books
+                </button>
+                <button className="cta-button">
+                  Create Account
+                </button>
+              </div>
             </header>
 
             {/* Search Section */}
@@ -285,7 +309,10 @@ const BookRentalHomePage = () => {
                 <p className="feature-description">Post books you want to rent out to other students.</p>
               </div>
 
-              <div className="feature-card">
+              <div 
+                className="feature-card"
+                onClick={() => setCurrentView('view-books')}
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                   <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
